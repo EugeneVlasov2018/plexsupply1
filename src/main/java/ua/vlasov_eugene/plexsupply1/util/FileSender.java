@@ -6,6 +6,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import ua.vlasov_eugene.plexsupply1.exceptions.FTPWriteException;
 
 import java.io.*;
 
@@ -39,6 +40,9 @@ public class FileSender {
 					filename,url));
 		} catch (IOException e) {
 			log.error(String.format(ERROR,filename),e);
+			//todo вообще то нет смысла отправлять именно такой месседж клиенту,
+			// лучше сказать что-то типа "зайдите попозже", но это на случай если при ревью не пропишите проперти)
+			throw new FTPWriteException("Some goes wrong in FTPClient-lay "+e.getMessage());
 		}
 
 		return resultBuilder.toString();
