@@ -20,7 +20,8 @@ public class FilePathReader {
 		try (Scanner scanner = new Scanner(currentFile)){
 			if(scanner.hasNext()) {
 				String firstLineOfFile = scanner.nextLine();
-				log.info(firstLineOfFile);//todo логгирую вывод в консоль только тут, потому что не было задачи выводить строку из пустого файла
+				//todo логгирую вывод в консоль только тут, потому что не было задачи выводить строку из пустого файла
+				log.info(firstLineOfFile);
 				result = String.format(SUCCESS, fileName, firstLineOfFile);
 			} else {
 				result = String.format(FILE_IS_EMPTY, currentFile.getName());
@@ -30,7 +31,11 @@ public class FilePathReader {
 
 			result = String.format(FILE_NOT_FOUND,
 					e.getMessage().substring(0,e.getMessage().indexOf(" ")));
-			log.error(result,e);
+			//todo холиварный момент, - по хорошему в логи исключение добавлять не стоит, т.к. тут это часть логики
+			// я ожидаю, что по вине пользователя такая кака тоже может быть.
+			// Так что в лог с ERROR-уровнем лучше пущу просто сообщение
+			//log.error(result,e);
+			log.error(result);
 		}
 
 		return result;
