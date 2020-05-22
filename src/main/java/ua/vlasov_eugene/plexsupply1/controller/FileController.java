@@ -16,9 +16,8 @@ import java.util.List;
 public class FileController {
 	private final FileService fileService;
 
-	@ApiOperation("The command to get the file path." +
-			" If there is no file, an error400 will be thrown")
-	@GetMapping
+	@ApiOperation("The command to get the file path.")
+	@PostMapping
 	private List<String> workWithFileFromPath(@RequestParam List<String> filepaths){
 		return fileService.workWithFileFromPath(new HashSet<>(filepaths));
 	}
